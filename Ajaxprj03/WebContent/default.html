@@ -1,0 +1,43 @@
+<!DOCTYPE html public "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>The World Leader IT</title>
+<SCRIPT language="JavaScript" type="text/javascript">
+var xMLHttpRequest = new XMLHttpRequest();
+function findTutorials() {
+	xMLHttpRequest.open("Get","/Ajaxprj03/AjaxServlet03?topicName="+ document.getElementById("topicName").value, true);
+	xMLHttpRequest.onreadystatechange = processTutorials;
+	                                    
+	xMLHttpRequest.send(null);
+	
+}
+function processTutorials(){
+
+
+	if (xMLHttpRequest.readyState == 4 && xMLHttpRequest.status == 200) {
+		var JSONTopicObject = eval('(' + xMLHttpRequest.responseText +' )');
+		var table = ducument.getElementById("tutorialsTable");
+		table.innerHTML = "";
+		var headrow = table.insertRow(0);
+		var headcell = headrow.insertCell(0);
+		headcell.style.backgroundColor = "lightblue";
+		beadcell.innerHTML = JSONTopicObject.topic.name;
+		var tutorials = JSONTopicOpject.topic.tutorial;
+		var i = 0;
+		while (i < tutorials.length) {
+		    row = table.insertRow(i+1);
+		    cell = row.insertCell(0);
+		    cell.insertHTML = tutorials[i++].name;
+		    
+		}
+	}
+}
+</SCRIPT>
+</head>
+<body>
+<input type="text" id="topicName" size="20"/>
+<button type="button" onclick='findTutorials();'>Find Tutorials</button><br/>
+<br><table id="tutorialsTable" style="border:1px solid black"></table>
+</body>
+</html>
